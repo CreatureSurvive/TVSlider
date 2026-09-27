@@ -1,5 +1,11 @@
 # TVSlider
 
+[![CI](https://github.com/CreatureSurvive/TVSlider/actions/workflows/ci.yml/badge.svg)](https://github.com/CreatureSurvive/TVSlider/actions/workflows/ci.yml)
+[![Swift 6.0+](https://img.shields.io/badge/Swift-6.0+-F05138?logo=swift&logoColor=white)](https://swift.org)
+[![Platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20visionOS-blue)](#requirements)
+[![Swift Package Manager](https://img.shields.io/badge/SwiftPM-compatible-brightgreen)](#installation)
+[![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+
 `Slider` and `Stepper` for tvOS SwiftUI, which has neither, with one API that falls back to the
 native controls on iOS, iPadOS, macOS and visionOS.
 
@@ -42,11 +48,30 @@ and it's usually done slightly differently in each app.
 
 ## Installation
 
+Add TVSlider to your `Package.swift`:
+
 ```swift
-.package(url: "https://github.com/CreatureSurvive/TVSlider.git", from: "1.0.0")
+dependencies: [
+    .package(url: "https://github.com/CreatureSurvive/TVSlider.git", from: "1.0.0"),
+],
+targets: [
+    .target(name: "MyApp", dependencies: ["TVSlider"]),
+]
 ```
 
-Requires tvOS 17, iOS 17, macOS 14 or visionOS 1, and Swift 6.
+Or in Xcode, choose **File › Add Package Dependencies…** and enter
+`https://github.com/CreatureSurvive/TVSlider`.
+
+### Requirements
+
+| Platform | Minimum |
+| --- | --- |
+| iOS | 17.0 |
+| macOS | 14.0 |
+| tvOS | 17.0 |
+| visionOS | 1.0 |
+
+Swift 6.0 (Xcode 16) or later, in Swift 6 language mode. No third-party dependencies.
 
 ## Usage
 
@@ -91,6 +116,15 @@ position = model.press(+1, from: position, at: ProcessInfo.processInfo.systemUpt
 Touch-surface scrubbing uses a `UIPanGestureRecognizer` for indirect touches. The simulator's
 remote can't generate those pans, so verify scrubbing on hardware.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md). Releases follow [Semantic Versioning](https://semver.org).
+
+## Contributing
+
+Issues and pull requests are welcome. Please run `swift test` before opening a pull request, and
+add tests for new behavior.
+
 ## License
 
-MIT
+Available under the MIT license. See [LICENSE](LICENSE) for details.
