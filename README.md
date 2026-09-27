@@ -21,6 +21,12 @@ TVSlider(value: $volume, in: 0...1) {
 TVStepper("Subtitle Delay", value: $delay, in: -5...5, step: 0.5)
 ```
 
+<p align="center">
+  <img src="Screenshots/settings.jpg" alt="Audio and subtitle settings on Apple TV with a focused volume slider, in dark mode" width="49%">
+  <img src="Screenshots/settings-light.jpg" alt="The same settings screen in light mode" width="49%">
+</p>
+
+
 ## Why
 
 SwiftUI marks `Slider` and `Stepper` as unavailable on tvOS. Every Apple TV app with a settings
@@ -115,6 +121,8 @@ position = model.press(+1, from: position, at: ProcessInfo.processInfo.systemUpt
 
 Touch-surface scrubbing uses a `UIPanGestureRecognizer` for indirect touches. The simulator's
 remote can't generate those pans, so verify scrubbing on hardware.
+
+The README screenshots are captured by UI tests in `Example/`; `Scripts/screenshots.sh` regenerates them.
 
 ## Changelog
 

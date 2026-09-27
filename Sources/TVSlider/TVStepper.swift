@@ -79,11 +79,7 @@ struct FocusStepperBody<Label: View>: View {
                 .opacity(value < model.range.upperBound ? 1 : 0.25)
         }
         .padding(style.padding)
-        .background {
-            RoundedRectangle(cornerRadius: style.cornerRadius, style: .continuous)
-                .fill(isFocused ? AnyShapeStyle(.regularMaterial) : AnyShapeStyle(.clear))
-                .shadow(color: .black.opacity(isFocused ? 0.25 : 0), radius: 16, y: 8)
-        }
+        .background { FocusPlatter(isFocused: isFocused, cornerRadius: style.cornerRadius) }
         .scaleEffect(isFocused ? style.focusedScale : 1)
         .animation(.spring(duration: 0.25), value: isFocused)
         .opacity(isEnabled ? 1 : 0.5)

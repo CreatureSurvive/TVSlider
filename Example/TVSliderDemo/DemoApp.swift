@@ -4,7 +4,9 @@ import TVSlider
 @main
 struct DemoApp: App {
     var body: some Scene {
-        WindowGroup { DemoView() }
+        WindowGroup {
+            if ProcessInfo.processInfo.arguments.contains("-showcase") { ShowcaseView() } else { DemoView() }
+        }
     }
 }
 

@@ -107,6 +107,20 @@ extension View {
 }
 
 #if os(tvOS)
+/// The raised background of a focused control: white in light mode and a
+/// lighter gray in dark mode, like the system's focused rows.
+struct FocusPlatter: View {
+    let isFocused: Bool
+    let cornerRadius: CGFloat
+    @Environment(\.colorScheme) private var colorScheme
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+            .fill(isFocused ? (colorScheme == .dark ? Color.white.opacity(0.16) : .white) : .clear)
+            .shadow(color: .black.opacity(isFocused ? (colorScheme == .dark ? 0.45 : 0.18) : 0), radius: 16, y: 8)
+    }
+}
+
 struct FocusSliderBody<Label: View, ValueLabel: View>: View {
     @Binding var value: Double
     @State var model: SliderModel
@@ -137,11 +151,7 @@ struct FocusSliderBody<Label: View, ValueLabel: View>: View {
             track
         }
         .padding(style.padding)
-        .background {
-            RoundedRectangle(cornerRadius: style.cornerRadius, style: .continuous)
-                .fill(isFocused ? AnyShapeStyle(.regularMaterial) : AnyShapeStyle(.clear))
-                .shadow(color: .black.opacity(isFocused ? 0.25 : 0), radius: 16, y: 8)
-        }
+        .background { FocusPlatter(isFocused: isFocused, cornerRadius: style.cornerRadius) }
         .scaleEffect(isFocused ? style.focusedScale : 1)
         .animation(.spring(duration: 0.25), value: isFocused)
         .opacity(isEnabled ? 1 : 0.5)
@@ -179,10 +189,10 @@ struct FocusSliderBody<Label: View, ValueLabel: View>: View {
             let width = geometry.size.width
             ZStack(alignment: .leading) {
                 Capsule()
-                    .fill(.white.opacity(0.2))
+                    .fill(Color.primary.opacity(0.18))
                     .frame(height: style.trackHeight)
                 Capsule()
-                    .fill(isFocused ? AnyShapeStyle(.tint) : AnyShapeStyle(.white.opacity(0.7)))
+                    .fill(isFocused ? AnyShapeStyle(.tint) : AnyShapeStyle(Color.primary.opacity(0.55)))
                     .frame(width: max(style.trackHeight, width * fraction), height: style.trackHeight)
                 Circle()
                     .fill(.white)
